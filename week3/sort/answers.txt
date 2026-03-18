@@ -1,0 +1,17 @@
+sort1 uses: BUBBLE SORT
+
+How do you know?: It is the slowest algorithm for reversed lists. Its runtime grows
+with the square of the input size in the worst case.
+Going from 10 000 to 50 000 elements increases the time by about 25×,
+what you expect from an O(n**2) algorithm.
+For sorted lists(best case scenario), the time increases as n, as the algorithm is optimized.
+
+sort2 uses: MERGE SORT
+
+How do you know?: Is the fastest algorithm for every case, particularly for random lists.
+
+sort3 uses: SELECTION SORT
+
+How do you know?: The runtime increases proportionally to the number of elements
+(O(n)) in both random and reversed lists. When the list is sorted, it takes longer
+because it scans element by element without taking advantage of ordering.
