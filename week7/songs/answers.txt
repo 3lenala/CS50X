@@ -1,0 +1,23 @@
+A way of calculating the audio aura is the following:
+SELECT AVG(energy) * AVG(danceability) * AVG(valence) FROM songs;
+Since all the metrics range from 0 to 1, their product tends to be low unless all three averages are close to 1.
+Therefore, it is only measuring how euphoric the songs are on average rather than measuring mood in general.
+Calm but cheerful music, for example, get a low score, just like sad music. Taking the cube root of the product
+(the geometric mean) doesn't change how different auras compare to each other, but it brings the result back to the original scale of 0 to 1,
+which makes it easier to interpret. Another way of representing this aura can be by defining differnt thresholds for the average
+values, each representing different states.
+
+SELECT
+    CASE
+        WHEN AVG(energy) >= 0.5 AND AVG(valence) >= 0.5 THEN 'Energetic and cheerful'
+        WHEN AVG(energy) >= 0.5                         THEN 'Intense'
+        WHEN AVG(valence) >= 0.5                        THEN 'Chill'
+        ELSE                                                 'Melancholic'
+    END AS aura
+FROM songs;
+
+One should notice that the 0.5 threshold is arbitrary.
+On top of the averages, the standard deviation should also be included, as the average tends to be a biased metric depending on the set it is taken from.
+In this case, it does not count for the variability of the different songs; a mix of energetic and sad songs would yield the same average as a mix of neutral ones.
+It also treats all the songs equaly, when not all of them are streamed an equal amount of time. Therefore, theaverage should actually be taken as a weighted
+average by number of streams.
